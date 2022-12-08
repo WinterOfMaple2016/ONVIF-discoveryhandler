@@ -9,11 +9,8 @@ on:
       - test/run-end-to-end.py
       - test/run-conservation-of-broker-pod.py
       - test/run-helm-install-delete.py
-      - test/run-webhook.py
       - test/shared_test_code.py
       - .github/workflows/run-test-cases.yml
-      - build/containers/Dockerfile.agent
-      - build/containers/Dockerfile.controller
       - deployment/helm/**
       - agent/**
       - controller/**
@@ -60,9 +57,8 @@ jobs:
           BUILD_AMD64: 1
           BUILD_ARM32: 0
           BUILD_ARM64: 0
-          BUILD_SLIM_AGENT: 0
           AGENT_FEATURES: "agent-full"
-          PACKAGES_TO_EXCLUDE: "akri-udev akri-onvif akri-opcua udev-video-broker debug-echo-discovery-handler onvif-discovery-handler opcua-discovery-handler udev-discovery-handler"
+          PACKAGES_TO_EXCLUDE: "akri-onvif onvif-discovery-handler"
           PREFIX: ghcr.io/project-akri/akri
           LABEL_PREFIX: pr
           CARGO_INCREMENTAL: 0
@@ -71,28 +67,6 @@ jobs:
           make controller-build-amd64
           make agent-full-build-amd64
           make webhook-configuration-build-amd64
-          docker save ${PREFIX}/agent-full:${LABEL_PREFIX}-amd64 > agent.tar
-          docker save ${PREFIX}/controller:${LABEL_PREFIX}-amd64 > controller.tar
-          docker save ${PREFIX}/webhook-configuration:${LABEL_PREFIX}-amd64 > webhook-configuration.tar
-
-      - name: Upload Agent container as artifact
-        if: startsWith(github.event_name, 'pull_request')
-        uses: actions/upload-artifact@v2
-        with:
-          name: agent.tar
-          path: agent.tar
-      - name: Upload Controller container as artifact
-        if: startsWith(github.event_name, 'pull_request')
-        uses: actions/upload-artifact@v2
-        with:
-          name: controller.tar
-          path: controller.tar
-      - name: Upload Webhook-Configuration container as artifact
-        if: startsWith(github.event_name, 'pull_request')
-        uses: actions/upload-artifact@v2
-        with:
-          name: webhook-configuration.tar
-          path: webhook-configuration.tar
 
   test-cases:
     needs: build-containers

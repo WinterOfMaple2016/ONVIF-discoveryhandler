@@ -16,8 +16,6 @@ PACKAGES_TO_EXCLUDE ?=
 # By default for cargo builds, it is enabled in debug mode and disabled in release mode.
 CARGO_INCREMENTAL ?= 0
 
-BUILD_SLIM_AGENT ?= 1
-FULL_AGENT_EXECUTABLE_NAME ?= agent-full
 # Specify which features of the Agent to build, namely which Discovery Handlers
 # should be embedded if any. The "agent-full" feature must be enabled to use the embedded
 # Discovery Handlers. IE: AGENT_FEATURES="agent-full onvif-feat opcua-feat udev-feat"
