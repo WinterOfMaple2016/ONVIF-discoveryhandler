@@ -14,7 +14,7 @@ on:
 jobs:
   example_job:
     name: Generate output
-    runs-on: ubuntu-lates
+    runs-on: ubuntu-latest
     # Map the job outputs to step outputs
     outputs:
       output1: ${{ steps.step1.outputs.firstword }}
