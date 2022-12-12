@@ -1,4 +1,4 @@
-name: Test matrix
+name: Test strategy matrix
 on: push
 jobs:
   test:
