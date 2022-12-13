@@ -10,14 +10,14 @@ jobs:
       - name: Build
         id: build_step
         run: |
-          ./build
+          ./build.sh
           echo "build_id=$BUILD_ID" >> $GITHUB_OUTPUT
   deploy:
     needs: build
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - run: ./deploy --build ${{ needs.build.outputs.build_id }}
+      - run: ./deploy.sh --build ${{ needs.build.outputs.build_id }}
   debug:
     needs: [build, deploy]
     runs-on: ubuntu-latest
