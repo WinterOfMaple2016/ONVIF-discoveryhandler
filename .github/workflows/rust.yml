@@ -1,0 +1,23 @@
+name: Rust
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+env:
+  CARGO_TERM_COLOR: always
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    #strategy:
+    #  matrix:
+    #    os: [, windows-latest, macOS-latest]
+    steps:
+    - uses: actions/checkout@v3
+    - name: tool install
+      run: cargo install cross
+    - name: Build
+      run: CARGO_INCREMENTAL=0 PKG_CONFIG_ALLOW_CROSS=1 cross build  --release --target= "x86_64-unknown-linux-gnu"
