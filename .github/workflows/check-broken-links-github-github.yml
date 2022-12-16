@@ -38,9 +38,7 @@ jobs:
       uses: actions/setup-node@v3
       with:
         node-version: 16.13.x
-        cache: npm
     - run: npm ci
-    - run: npm test
     
     # Creates file "$/files.json", among others
     - name: Gather files changed
