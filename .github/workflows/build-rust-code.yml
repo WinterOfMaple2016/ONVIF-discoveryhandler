@@ -1,4 +1,4 @@
-name: Build Producttion Rust Code
+name: Build Production Rust Code
 
 on:
   push:
