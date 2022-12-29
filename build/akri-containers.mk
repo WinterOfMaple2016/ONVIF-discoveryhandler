@@ -54,32 +54,32 @@ akri-cross-build: akri-cross-build-amd64 akri-cross-build-arm32 akri-cross-build
 akri-cross-build-amd64:
 ifeq (1, $(BUILD_AMD64))
 	CARGO_INCREMENTAL=$(CARGO_INCREMENTAL) PKG_CONFIG_ALLOW_CROSS=1 cross build $(if $(BUILD_RELEASE_FLAG), --release) --target=$(AMD64_TARGET) --workspace --exclude agent $(foreach package,$(wordlist 1, 100, $(PACKAGES_TO_EXCLUDE)),--exclude $(package))
-ifneq ($(AGENT_FEATURES),)
-	$(call agent_build_with_features,$(AMD64_TARGET))
-endif
-ifeq (1, $(BUILD_SLIM_AGENT))
-	$(call agent_build_slim,$(AMD64_TARGET))
-endif
+# ifneq ($(AGENT_FEATURES),)
+# 	$(call agent_build_with_features,$(AMD64_TARGET))
+# endif
+# ifeq (1, $(BUILD_SLIM_AGENT))
+# 	$(call agent_build_slim,$(AMD64_TARGET))
+# endif
 endif
 akri-cross-build-arm32: 
 ifeq (1, $(BUILD_ARM32))
 	CARGO_INCREMENTAL=$(CARGO_INCREMENTAL) PKG_CONFIG_ALLOW_CROSS=1 cross build $(if $(BUILD_RELEASE_FLAG), --release) --target=$(ARM32V7_TARGET) --workspace --exclude agent $(foreach package,$(wordlist 1, 100, $(PACKAGES_TO_EXCLUDE)),--exclude $(package))
-ifneq ($(AGENT_FEATURES),)
-	$(call agent_build_with_features,$(ARM32V7_TARGET))
-endif
-ifeq (1, $(BUILD_SLIM_AGENT))
-	$(call agent_build_slim,$(ARM32V7_TARGET))
-endif
+# ifneq ($(AGENT_FEATURES),)
+# 	$(call agent_build_with_features,$(ARM32V7_TARGET))
+# endif
+# ifeq (1, $(BUILD_SLIM_AGENT))
+# 	$(call agent_build_slim,$(ARM32V7_TARGET))
+# endif
 endif
 akri-cross-build-arm64:
 ifeq (1, ${BUILD_ARM64})
 	CARGO_INCREMENTAL=$(CARGO_INCREMENTAL) PKG_CONFIG_ALLOW_CROSS=1 cross build $(if $(BUILD_RELEASE_FLAG), --release) --target=$(ARM64V8_TARGET) --workspace --exclude agent $(foreach package,$(wordlist 1, 100, $(PACKAGES_TO_EXCLUDE)),--exclude $(package))
-ifneq ($(AGENT_FEATURES),)
-	$(call agent_build_with_features,$(ARM64V8_TARGET))
-endif
-ifeq (1, $(BUILD_SLIM_AGENT))
-	$(call agent_build_slim,$(ARM64V8_TARGET))
-endif
+# ifneq ($(AGENT_FEATURES),)
+# 	$(call agent_build_with_features,$(ARM64V8_TARGET))
+# endif
+# ifeq (1, $(BUILD_SLIM_AGENT))
+# 	$(call agent_build_slim,$(ARM64V8_TARGET))
+# endif
 endif
 
 # Rust targets
