@@ -52,14 +52,14 @@ jobs:
         persist-credentials: false
     
     - name: Prepare To Install
-      uses: actions/setup-nodes@v1
+      uses: actions/setup-node@v1
       with:
         node-version: 12
         
     - name: Install Deps
       run: |
         yarn install
-        yearn add @actions/core @actions/github @actions/exec fs
+        yarn add @actions/core @actions/github @actions/exec fs
     
     - name: Run Per-Arch component build for ${{ env.AKRI_COMPONENT }}
       uses: ./.github/actions/build-component-per-arch
@@ -74,11 +74,11 @@ jobs:
         container_registry_username: ${{ secrets.crUsername }}
         container_registry_password: ${{ secrets.crPassword }}
         makefile_component_name: ${{ env.MAKEFILE_COMPONENT }}
-        plateform: ${{ matrix.arch }}
+        platform: ${{ matrix.arch }}
         build_rust: "0"
   
   multi-arch:
-    if: (github.event_name == 'release') || (github.event_name == 'push' && github.ref == 'refs/heads/main') || (startsWith(github.event_name, 'pull_request') && gihub.event.action == 'closed' && github.event.pull_request.merged == true && github.ref != 'refs/heads/main')
+    if: (github.event_name == 'release') || (github.event_name == 'push' && github.ref == 'refs/heads/main') || (startsWith(github.event_name, 'pull_request') && github.event.action == 'closed' && github.event.pull_request.merged == true && github.ref != 'refs/heads/main')
     needs: per-arch
     runs-on: ubuntu-latest
     timeout-minutes: 5
@@ -90,7 +90,7 @@ jobs:
         persist-credentials: false
     
     - name: Prepare To Install
-      uses: actions/setup-nodes@v1
+      uses: actions/setup-node@v1
       with:
         node-version: 12
         
@@ -100,7 +100,7 @@ jobs:
         yarn add @actions/core @actions/github @actions/exec fs
     
     - name: Run Multi-Arch component build for ${{ env.AKRI_COMPONENT }}
-      uses: ./.gihub/actions/build-component-multi-arch
+      uses: ./.github/actions/build-component-multi-arch
       with:
         github_event_name: ${{ github.event_name }}
         container_name: ${{ env.AKRI_COMPONENT }}
