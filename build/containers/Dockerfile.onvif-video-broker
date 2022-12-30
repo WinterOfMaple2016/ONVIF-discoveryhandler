@@ -7,9 +7,9 @@ ARG BUILD_PLATFORM_TAG
 RUN echo "Build base image: mcr.microsoft.com/dotnet/core/sdk:${BUILD_PLATFORM_TAG}"
 
 WORKDIR /src
-COPY ["samples/brokers/onvif-video-broker/onvif-video-broker.csproj", "."]
+COPY ["onvif-video-broker/onvif-video-broker.csproj", "."]
 RUN find . && dotnet restore "onvif-video-broker.csproj"
-COPY ["samples/brokers/onvif-video-broker", "."]
+COPY ["onvif-video-broker", "."]
 RUN find . && dotnet build "onvif-video-broker.csproj" -c Release -o /app/build
 
 FROM build AS publish
@@ -24,8 +24,6 @@ RUN echo "Output base image: ghcr.io/project-akri/akri/opencvsharp-build:${OUTPU
 WORKDIR /app
 COPY --from=publish /app/publish .
 
-# Link the container to the Akri repository
-LABEL org.opencontainers.image.source https://github.com/project-akri/akri
 
 EXPOSE 8083
 ENV ASPNETCORE_URLS=http://*:8083
