@@ -5,7 +5,7 @@
 # ONVIF broker is built using a `docker build` command, so
 # the source code needs to be available to the DotNet container
 # build
-!samples/brokers/onvif-video-broker
+!onvif-video-broker
 
 # The Rust binaries are not built with a `docker build`
 # command (they are built using Cargo Cross, which I think
